@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script:700|Mukta:500|Roboto:400,400i,700,700i');
+
+:root {
+  --darkblue: #6e255b;
+  --green: #f300b4;
+}
+
+
+.btn {
+  font-family: 'Mukta', sans-serif;
+  font-size: 18px;
+  color: var(--darkblue);
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  padding: 15px 30px;
+  background: var(--green);
+}
+
+.btn.btn--go-icon {
+  position: relative;
+}
+
+.btn.btn--go-icon:after {
+  --circleSize: 40px;
+  content: 'Go';
+  text-align: center;
+  line-height: var(--circleSize);
+  text-transform: uppercase;
+  color: #fff;
+  display: block;
+  width: var(--circleSize);
+  height: var(--circleSize);
+  margin-top: calc(-1 * var(--circleSize) / 2);
+  margin-right: calc(-1 * var(--circleSize) / 2);
+  background: var(--darkblue);
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 0;
+}
+
+.ticket {
+  display: inline-block;
+  width: 400px;
+  padding: 15px;
+  position: relative;
+  top: 0;
+  z-index: 1;
+  transform: rotate(5deg) scale(0.95);
+  transition: transform 350ms cubic-bezier(.06, .2, .45, 1.39), top 350ms cubic-bezier(.06, .2, .45, 1.39);
+}
+
+.ticket:before,
+.ticket:after {
+  content: '';
+  display: block;
+  position: absolute;
+}
+
+.ticket:before {
+  border-radius: 6px;
+  left: 6px;
+  right: 12px;
+  top: 30px;
+  bottom: 0;
+  transition: box-shadow 350ms cubic-bezier(.06, .2, .45, 1.39);
+}
+
+.ticket:after {
+  background: #fff;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ticket:hover {
+  transform: rotate(1deg) scale(1.1);
+  top: -12px;
+  z-index: 2;
+}
+
+.ticket:hover:before {
+  box-shadow: 0 24px 2px rgba(55, 55, 55, 0.1), 0 9px 15px rgba(55, 55, 55, 0.2);
+}
+
+.ticket__inner {
+  padding: 90px 30px 33px;
+  border: 2px solid var(--darkblue);
+  border-top: none;
+  overflow: hidden;
+  position: relative;
+  z-index: 3;
+}
+
+.ticket__inner:before {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin-left: -52px;
+  border-radius: 50%;
+  border: 2px solid var(--darkblue);
+  position: absolute;
+  z-index: 1;
+  top: -50px;
+  left: 50%;
+}
+
+.ticket--has-btn .ticket__inner {
+  padding-bottom: 114px;
+  pointer-events: none;
+}
+
+.ticket__border:before,
+.ticket__border:after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: var(--darkblue);
+  position: absolute;
+  z-index: 1;
+  top: 0;
+}
+
+.ticket__border:before {
+  margin-right: 50px;
+  left: 0;
+  right: 50%;
+}
+
+.ticket__border:after {
+  margin-left: 50px;
+  right: 0;
+  left: 50%;
+}
+
+.ticket__title {
+  font-family: 'Mukta', sans-serif;
+  font-size: 39px;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--green);
+  margin: 0 0 18px;
+}
+
+.ticket__title strong {
+  font-family: 'Dancing Script', script;
+  font-size: 125%;
+  color: var(--darkblue);
+  text-transform: none;
+  display: block;
+  margin-top: -3px;
+}
+
+.ticket__text {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.ticket__btn {
+  font-size: 30px;
+  margin: -81px -15px -15px;
+  padding-top: 24px;
+  padding-bottom: 30px;
+  display: block;
+  z-index: 2;
+}
+
+.ticket__btn.btn--go-icon:after {
+  --circleSize: 55px;
+  font-size: 27px;
+  line-height: var(--circleSize);
+  width: var(--circleSize);
+  height: var(--circleSize);
+  position: relative;
+  margin-left: 9px;
+  display: inline-block;
+  transition: background 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.ticket__btn:hover,
+.ticket__btn:focus {
+  color: var(--darkblue);
+  background: #fff;
+}
