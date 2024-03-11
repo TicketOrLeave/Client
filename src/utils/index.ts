@@ -9,4 +9,5 @@ export async function getToken() {
 
 export const fetcher = axios.create({
   baseURL: process.env.SERVER_API_URL,
+  headers: { Cookie: cookies().toString() },
 })
