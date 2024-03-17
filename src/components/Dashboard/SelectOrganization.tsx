@@ -45,7 +45,7 @@ export function SelectOrganization({ organizations, onSelect }: SelectOrganizati
                       width={20}
                       height={20}
                     />
-                    <span className="ml-3 block truncate">{selected.name}</span>
+                    <span className="ml-3 block truncate min-w-40">{selected.name}</span>
                   </>
                 ) : (
                   <span>Select an organization</span>
