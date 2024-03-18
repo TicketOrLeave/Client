@@ -1,3 +1,4 @@
+import Footer from '@/components/Dashboard/Footer'
 import { Header } from '@/components/Dashboard/Header/Header'
 
 export default function OrganzationLayout({ children }: { children: React.ReactNode }) {
@@ -5,8 +6,7 @@ export default function OrganzationLayout({ children }: { children: React.ReactN
     <div className="flex flex-col h-screen">
       <Header />
       <main className="flex-1">{children}</main>
-      {/* TODO: Footer */}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   )
 }
