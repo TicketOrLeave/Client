@@ -19,3 +19,12 @@ export async function getOrganizations(): Promise<APIRespone<IOrganization[]>> {
     return { success: false, error: error as APIError }
   }
 }
+
+export async function getOrganization(orgId: string): Promise<APIRespone<IOrganization>> {
+  try {
+    const res = await fetcher.get(`/organizations/${orgId}`)
+    return { success: true, data: res.data }
+  } catch (error) {
+    return { success: false, error: error as APIError }
+  }
+}
