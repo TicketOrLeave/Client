@@ -4,7 +4,6 @@ import React, { JSX, SVGProps } from 'react'
 import { LucideTicketCheck } from 'lucide-react'
 import { getOrganizations } from '@/lib/serverActions/organization'
 import { SwitchOrganization } from './SwitchOrganozation'
-import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,39 +12,38 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { getServerSession } from 'next-auth'
+import SidebarMenu from './SidebarMenu'
 
 export async function Header() {
   const organizations = await getOrganizations()
+  const session = await getServerSession()
 
   return (
     <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 justify-between lg:mx-4">
-      <Button
-        className="lg:hidden rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
-        size="icon"
-        variant="outline"
-      >
-        <MenuIcon className="h-6 w-6" />
-        <span className="sr-only">Toggle sidebar</span>
-      </Button>
+        <SidebarMenu organizations={organizations} />
       <Link className="flex items-center gap-2 text-xl font-semibold text-red" href="#">
         <TicketIcon className="h-8 w-8" />
         <span className="">TicketOrLeave</span>
       </Link>
       <div className="flex items-center gap-6">
-        <div className='hidden lg:block'>{organizations.success ? <SwitchOrganization organizations={organizations.data} /> : null}</div>
+        <div className="hidden lg:block">
+          {organizations.success ? <SwitchOrganization organizations={organizations.data} /> : null}
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Image
               alt="Avatar"
               className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800 select-none"
               height="32"
-              src="/user-svgrepo-com.svg"
+              src={session?.user?.image || '/user-svgrepo-com.svg'}
               style={{
                 aspectRatio: '32/32',
                 objectFit: 'cover',
               }}
               width="32"
             />
+            <span className="sr-only">Toggle user menu</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="text-gray-500">
             <DropdownMenuLabel>Settings</DropdownMenuLabel>
@@ -62,30 +60,8 @@ export async function Header() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <span className="sr-only">Toggle user menu</span>
       </div>
     </header>
-  )
-}
-
-function MenuIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
   )
 }
 

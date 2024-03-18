@@ -2,12 +2,18 @@
 
 import { IOrganization } from '@/types'
 import { SelectOrganization } from './SelectOrganization'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 export function SwitchOrganization({ organizations }: { organizations: IOrganization[] }) {
   const router = useRouter()
+  const pathname = usePathname()
+  if (pathname === '/dashboard') return null
   function onSelect(org: IOrganization) {
     router.push(`/dashboard/${org.id}`)
   }
-  return <SelectOrganization organizations={organizations} onSelect={onSelect} />
+  return (
+    <div className='max-w-full'>
+      <SelectOrganization organizations={organizations} onSelect={onSelect} />
+    </div>
+  )
 }
