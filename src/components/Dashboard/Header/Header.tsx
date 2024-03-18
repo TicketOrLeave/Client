@@ -1,20 +1,13 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import React, { JSX, SVGProps } from 'react'
 import { LucideTicketCheck } from 'lucide-react'
 import { getOrganizations } from '@/lib/serverActions/organization'
 import { SwitchOrganization } from '../SwitchOrganozation'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 import { getServerSession } from 'next-auth'
 import SidebarMenu from '../SidebarMenu'
 import { MenuLinks } from './menuLinks'
+import { ToggleComponents } from '@/components/ToggleComponents'
+import UserProfile from './UserProfile'
 
 export async function Header() {
   const organizations = await getOrganizations()
@@ -22,46 +15,23 @@ export async function Header() {
 
   return (
     <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 justify-between lg:mx-4">
+      <ToggleComponents>
         <SidebarMenu organizations={organizations} />
+      </ToggleComponents>
       <Link className="flex items-center gap-2 text-xl font-semibold text-red" href="#">
         <TicketIcon className="h-8 w-8" />
         <span className="">TicketOrLeave</span>
       </Link>
-      <MenuLinks />
+      <ToggleComponents>
+        <MenuLinks />
+      </ToggleComponents>
       <div className="flex items-center gap-6">
         <div className="hidden lg:block">
-          {organizations.success ? <SwitchOrganization organizations={organizations.data} /> : null}
+          <ToggleComponents>
+            {organizations.success ? <SwitchOrganization organizations={organizations.data} /> : null}
+          </ToggleComponents>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Image
-              alt="Avatar"
-              className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800 select-none"
-              height="32"
-              src={session?.user?.image || '/user-svgrepo-com.svg'}
-              style={{
-                aspectRatio: '32/32',
-                objectFit: 'cover',
-              }}
-              width="32"
-            />
-            <span className="sr-only">Toggle user menu</span>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="text-gray-500">
-            <DropdownMenuLabel>Settings</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="flex items-center gap-2">
-              <span>Dark Theme</span>
-            </DropdownMenuItem>
-            <DropdownMenuLabel>Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href="/api/auth/signout?callbackUrl=/" className="flex items-center gap-2">
-                <span>Logout</span>
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <UserProfile session={session} />
       </div>
     </header>
   )

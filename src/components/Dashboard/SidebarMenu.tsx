@@ -15,7 +15,6 @@ export default function SidebarMenu({ organizations }: { organizations: APIRespo
     setOpen(false)
   }, [pathname])
 
-  if (pathname === '/dashboard') return null
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger className="lg:hidden rounded-full border border-gray-200 dark:border-gray-800 p-1">

@@ -13,7 +13,6 @@ export function MenuLinks() {
   useEffect(() => {
     setCur(path[2] || '/')
   }, [pathname])
-  if (pathname === '/dashboard') return null
   return (
     <div className="hidden lg:flex lg:gap-3 lg:font-mono">
       <Link
