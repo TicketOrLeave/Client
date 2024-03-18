@@ -15,7 +15,7 @@ export function MenuLinks() {
   }, [pathname])
   if (pathname === '/dashboard') return null
   return (
-    <div className="hidden lg:flex lg:gap-3 lg:font-semibold">
+    <div className="hidden lg:flex lg:gap-3 lg:font-mono">
       <Link
         href={`/dashboard/${orgId}`}
         className={`p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex gap-2 ${

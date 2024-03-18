@@ -1,5 +1,5 @@
 'use client'
-import React, { SVGProps, useEffect, useState } from 'react'
+import React, { SVGProps, useEffect, useReducer, useState } from 'react'
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
 import { APIRespone, IOrganization } from '@/types'
 import { SwitchOrganization } from './SwitchOrganozation'
@@ -10,11 +10,11 @@ import { Calendar, HomeIcon, MailQuestionIcon, TicketIcon, Users } from 'lucide-
 export default function SidebarMenu({ organizations }: { organizations: APIRespone<IOrganization[]> }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
-  const org = organizations.success ? organizations.data.find((org) => org.id === pathname.split('/').pop()) : null
+  const orgId = pathname.split('/dashboard')[1].split('/')[1]
   useEffect(() => {
     setOpen(false)
   }, [pathname])
-  
+
   if (pathname === '/dashboard') return null
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -24,21 +24,37 @@ export default function SidebarMenu({ organizations }: { organizations: APIRespo
       </SheetTrigger>
       <SheetContent className="sm:w-[30%]" side={'left'}>
         <SheetHeader>
-          <div className="flex justify-center items-center flex-col gap-3">
-            {organizations.success ? <SwitchOrganization organizations={organizations.data} /> : null}
-            <Link href={`${org?.id}/`} className='p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex flex-wrap gap-2' onClick={() => setOpen(false)}>
+          {organizations.success ? <SwitchOrganization organizations={organizations.data} /> : null}
+          <div className="flex justify-center items-center flex-col gap-3 font-mono">
+            <Link
+              href={`/dashboard/${orgId}`}
+              className="p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex flex-wrap gap-2"
+              onClick={() => setOpen(false)}
+            >
               <HomeIcon className="h-6 w-6" />
               <span>Home</span>
             </Link>
-            <Link href={`${org?.id}/events`} className='p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex flex-wrap gap-2' onClick={() => setOpen(false)}>
-            <Calendar className="h-6 w-6" />
+            <Link
+              href={`/dashboard/${orgId}/events/`}
+              className="p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex flex-wrap gap-2"
+              onClick={() => setOpen(false)}
+            >
+              <Calendar className="h-6 w-6" />
               <span>Events</span>
             </Link>
-            <Link href={`${org?.id}/tickets`} className='p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex flex-wrap gap-2' onClick={() => setOpen(false)}>
+            <Link
+              href={`/dashboard/${orgId}/tickets`}
+              className="p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex flex-wrap gap-2"
+              onClick={() => setOpen(false)}
+            >
               <TicketIcon className="h-6 w-6" />
               <span>Tickets</span>
             </Link>
-            <Link href={`${org?.id}/team`} className='p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex flex-wrap gap-2' onClick={() => setOpen(false)}>
+            <Link
+              href={`/dashboard/${orgId}/team`}
+              className="p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex flex-wrap gap-2"
+              onClick={() => setOpen(false)}
+            >
               <Users className="h-6 w-6" />
               <span>Team</span>
             </Link>
