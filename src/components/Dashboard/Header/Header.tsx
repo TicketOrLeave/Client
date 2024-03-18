@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React, { JSX, SVGProps } from 'react'
 import { LucideTicketCheck } from 'lucide-react'
 import { getOrganizations } from '@/lib/serverActions/organization'
-import { SwitchOrganization } from './SwitchOrganozation'
+import { SwitchOrganization } from '../SwitchOrganozation'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { getServerSession } from 'next-auth'
-import SidebarMenu from './SidebarMenu'
+import SidebarMenu from '../SidebarMenu'
+import { MenuLinks } from './menuLinks'
 
 export async function Header() {
   const organizations = await getOrganizations()
@@ -26,6 +27,7 @@ export async function Header() {
         <TicketIcon className="h-8 w-8" />
         <span className="">TicketOrLeave</span>
       </Link>
+      <MenuLinks />
       <div className="flex items-center gap-6">
         <div className="hidden lg:block">
           {organizations.success ? <SwitchOrganization organizations={organizations.data} /> : null}

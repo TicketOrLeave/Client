@@ -1,4 +1,4 @@
-import { Header } from '@/components/Dashboard/Header'
+import { Header } from '@/components/Dashboard/Header/Header'
 
 export default function OrganzationLayout({ children }: { children: React.ReactNode }) {
   return (
