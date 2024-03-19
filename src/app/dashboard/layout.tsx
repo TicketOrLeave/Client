@@ -1,6 +1,7 @@
 import BreadcrumbComponent from '@/components/Dashboard/Breadcrumb'
 import Footer from '@/components/Dashboard/Footer'
 import { Header } from '@/components/Dashboard/Header/Header'
+import { Toaster } from 'react-hot-toast'
 
 export default function OrganzationLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -11,6 +12,7 @@ export default function OrganzationLayout({ children }: { children: React.ReactN
       </div>
       <main className="flex-1">{children}</main>
       <Footer />
+      <Toaster  position='bottom-right' />
     </div>
   )
 }
