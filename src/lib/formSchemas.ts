@@ -1,10 +1,12 @@
 import { z } from 'zod'
 
 export const createOrganizationSchema = z.object({
-  name: z
+  name: z.string().min(2, 'Name must be at least 2 characters').max(255, 'Name must be less than 255 characters'),
+  description: z
     .string()
-    .min(2, {
-      message: 'name must be at least 2 characters.',
-    })
-    .max(255, { message: 'name must be at most 255 characters.' }),
+    .max(400, 'Description must be less than 400 characters')
+    .optional(),
+  logo: z.string().optional(),
+  website: z.string().url().optional(),
+  contactEmail: z.string().email(),
 })

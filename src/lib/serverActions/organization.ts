@@ -2,7 +2,19 @@
 import { APIError, APIRespone, IOrganization } from '@/types'
 import fetcher from '../fetcher'
 
-export async function createOrganization(name: string): Promise<APIRespone<IOrganization>> {
+export async function createOrganization({
+  name,
+  email,
+  description,
+  logo,
+  website,
+}: {
+  name: string
+  email: string
+  description: string | undefined
+  website: string | undefined
+  logo: string | undefined
+}): Promise<APIRespone<IOrganization>> {
   try {
     const res = await fetcher.post(`/organizations/?name=${name}`)
     return { success: true, data: res.data }
