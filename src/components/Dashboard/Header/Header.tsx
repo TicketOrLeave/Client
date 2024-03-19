@@ -14,7 +14,7 @@ export async function Header() {
   const session = await getServerSession()
 
   return (
-    <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 justify-between lg:mx-4">
+    <header className="py-6 flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 justify-between lg:mx-4">
       <ToggleComponents>
         <SidebarMenu organizations={organizations} />
       </ToggleComponents>
