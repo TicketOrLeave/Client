@@ -18,7 +18,7 @@ interface SelectOrganizationProps {
 export function SelectOrganization({ organizations, onSelect }: SelectOrganizationProps) {
   const pathname = usePathname()
   const [selected, setSelected] = useState<IOrganization>(
-    pathname === '/dashboard' ? organizations[0] : organizations?.find((org) => org.id === pathname.split('/').pop())!,
+    pathname === '/dashboard' ? organizations[0] : organizations?.find((org) => org.id === pathname.split('/dashboard')[1].split('/')[1])!,
   )
 
   return (
@@ -32,13 +32,14 @@ export function SelectOrganization({ organizations, onSelect }: SelectOrganizati
       {({ open }) => (
         <>
           <div className="relative mt-2">
-            <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+            <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 sm:text-sm sm:leading-6">
               <span className="flex items-center truncate">
                 {selected ? (
                   <>
                     <Image
                       src={
-                        'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                        // @ts-ignore
+                        selected.image||`https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`
                       }
                       alt=""
                       className="h-5 w-5 flex-shrink-0 rounded-full"
@@ -69,7 +70,7 @@ export function SelectOrganization({ organizations, onSelect }: SelectOrganizati
                     key={org.id}
                     className={({ active }) =>
                       classNames(
-                        active ? 'bg-indigo-600 text-blue bg-orange' : 'text-gray-900',
+                        active ? 'bg-green-400 text-blue bg-orange' : 'text-gray-900',
                         'relative cursor-default select-none py-2 pl-3 pr-9',
                       )
                     }
@@ -80,6 +81,8 @@ export function SelectOrganization({ organizations, onSelect }: SelectOrganizati
                         <div className="flex items-center">
                           <Image
                             src={
+                              // @ts-ignore
+                              selected.image ||
                               'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
                             }
                             alt=""
@@ -97,7 +100,7 @@ export function SelectOrganization({ organizations, onSelect }: SelectOrganizati
                         {selected ? (
                           <span
                             className={classNames(
-                              active ? 'text-white' : 'text-indigo-600',
+                              active ? 'text-white' : 'text-green-400',
                               'absolute inset-y-0 right-0 flex items-center pr-4',
                             )}
                           >
