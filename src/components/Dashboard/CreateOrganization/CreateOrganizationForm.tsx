@@ -1,19 +1,24 @@
 'use client'
-import React from 'react'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { createOrganizationSchema } from '@/lib/formSchemas'
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'react-hot-toast'
 import * as z from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { createOrganizationSchema } from '@/lib/formSchemas'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { createOrganization } from '@/lib/serverActions/organization'
-import { useRouter } from 'next/navigation'
-import { toast } from 'react-hot-toast'
+import { FileUploader } from '@/components/Dashboard/CreateOrganization/FileUploader'
+import { useUploadThing } from '@/lib/uploadthing'
 
 export default function CreateOrganizationForm() {
+  const [logo, setLogo] = useState<File[]>([])
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const { startUpload } = useUploadThing('imageUploader')
   const form = useForm<z.infer<typeof createOrganizationSchema>>({
     resolver: zodResolver(createOrganizationSchema),
     defaultValues: {
@@ -21,7 +26,18 @@ export default function CreateOrganizationForm() {
       contactEmail: '',
     },
   })
+
   async function onSubmit(data: z.infer<typeof createOrganizationSchema>) {
+    setLoading(true)
+    toast.loading('Creating organization...', { id: 'creating-organization' })
+    if (logo.length > 0) {
+      const uploadedImage = await startUpload(logo)
+      if (!uploadedImage) {
+        toast.error('Error uploading image')
+        return
+      }
+      data.logo = uploadedImage[0].url
+    }
     const res = await createOrganization({
       name: data.name,
       description: data.description,
@@ -29,6 +45,8 @@ export default function CreateOrganizationForm() {
       logo: data.logo,
       website: data.website,
     })
+    toast.dismiss('creating-organization')
+    setLoading(false)
     if (!res.success) {
       toast.error('Error creating organization')
       return
@@ -78,52 +96,54 @@ export default function CreateOrganizationForm() {
             name="description"
             render={({ field }) => (
               <FormItem className="">
-                <FormLabel className="">Description</FormLabel>
+                <FormLabel className="">
+                  Description <span className="text-gray-400">(optional)</span>
+                </FormLabel>
                 <FormControl>
-                  <Textarea
-                    id="description"
-                    placeholder="Enter a description for your organization. (optional)"
-                    {...field}
-                  />
+                  <Textarea id="description" placeholder="Enter a description for your organization." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        {/* <div className="w-[70%]">
+        <div className="w-[70%]">
           <FormField
             control={form.control}
             name="logo"
             render={({ field }) => (
               <FormItem className="">
-                <FormLabel className="">Logo</FormLabel>
+                <FormLabel className="">
+                  Logo <span className="text-gray-400">(optional)</span>
+                </FormLabel>
                 <FormControl>
-                  <Input accept="image/*" id="logo" type="file" />
+                  <FileUploader onFieldChange={field.onChange} imageUrl={field.value} setFiles={setLogo} />
                 </FormControl>
-                <p className="text-sm text-gray-500 dark:text-gray-400">PNG, JPG, GIF up to 10MB</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">PNG, JPG, GIF up to 4MB</p>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div> */}
+        </div>
         <div className="w-[70%]">
           <FormField
             control={form.control}
             name="website"
             render={({ field }) => (
               <FormItem className="">
-                <FormLabel className="">Website</FormLabel>
+                <FormLabel className="">
+                  Website <span className="text-gray-400">(optional)</span>
+                </FormLabel>
                 <FormControl>
-                  <Input id="website" placeholder="https://example.com (optional)" {...field} />
+                  <Input id="website" placeholder="https://example.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        <Button type="submit" className="w-[70%] bg-green-400 hover:bg-green-600 mt-4">
-          Create Organization
+        <Button type="submit" disabled={loading} className="w-[70%] bg-green-400 hover:bg-green-600 mt-4">
+          {loading ? 'Creating Organization...' : 'Create Organization'}
         </Button>
       </form>
     </Form>
