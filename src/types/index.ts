@@ -12,7 +12,7 @@ export interface IEvent {
   start_date: string
   end_date: string
   description?: string
-  image?: string
+  cover_image_url?: string
   location?: string
   maxTickets: number,
   status: string
