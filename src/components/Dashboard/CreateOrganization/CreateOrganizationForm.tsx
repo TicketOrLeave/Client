@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { createOrganization } from '@/lib/serverActions/organization'
-import { FileUploader } from '@/components/Dashboard/CreateOrganization/FileUploader'
+import { FileUploader } from '@/components/FileUploader'
 import { useUploadThing } from '@/lib/uploadthing'
 
 export default function CreateOrganizationForm() {
