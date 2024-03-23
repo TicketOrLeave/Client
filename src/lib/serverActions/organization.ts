@@ -16,7 +16,14 @@ export async function createOrganization({
   logo: string | undefined
 }): Promise<APIRespone<IOrganization>> {
   try {
-    const res = await fetcher.post(`/organizations/?name=${name}`)
+    const res = await fetcher.post(`/organizations/`, {
+      name,
+      contact_email: email,
+      description,
+      logo_url: logo,
+      website,
+    
+    })
     return { success: true, data: res.data }
   } catch (error) {
     return { success: false, error: error as APIError }
