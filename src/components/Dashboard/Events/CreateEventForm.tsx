@@ -87,7 +87,7 @@ export default function CreateEventForm({ orgId }: { orgId: string }) {
       return
     }
     toast.success('Event created successfully')
-    router.push('/dashboard')
+    router.push(`/dashboard/${orgId}/events/`)
   }
   return (
     <Form {...form}>
