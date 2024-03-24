@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { JSX, SVGProps } from 'react'
-import { LucideTicketCheck } from 'lucide-react'
+import { Bell, LucideTicketCheck } from 'lucide-react'
 import { getOrganizations } from '@/lib/serverActions/organization'
 import { SwitchOrganization } from '../SwitchOrganozation'
 import { getServerSession } from 'next-auth'
@@ -8,10 +8,13 @@ import SidebarMenu from '../SidebarMenu'
 import { MenuLinks } from './menuLinks'
 import { ToggleComponents } from '@/components/ToggleComponents'
 import UserProfile from './UserProfile'
+import { getInvitations } from '@/lib/serverActions/invitation'
+import { DropdownNotification } from './DropDownNotification'
 
 export async function Header() {
   const organizations = await getOrganizations()
   const session = await getServerSession()
+  const invitations = await getInvitations()
 
   return (
     <header className="py-6 flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 justify-between lg:mx-4">
@@ -31,6 +34,7 @@ export async function Header() {
             {organizations.success ? <SwitchOrganization organizations={organizations.data} /> : null}
           </ToggleComponents>
         </div>
+        {invitations.success && <DropdownNotification invitations={invitations.data} />}
         <UserProfile session={session} />
       </div>
     </header>
