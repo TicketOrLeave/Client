@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { HiOutlineUserPlus } from 'react-icons/hi2'
 
 import {
   Dialog,

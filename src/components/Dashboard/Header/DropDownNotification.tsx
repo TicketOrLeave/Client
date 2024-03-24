@@ -34,7 +34,7 @@ export function DropdownNotification({ invitations }: { invitations: IInvitation
         <DialogHeader>
           <DialogTitle className='text-2xl'>Notifications</DialogTitle>
         </DialogHeader>
-        {[...invitations,...invitations,...invitations,...invitations,...invitations].map(
+        {invitations.map(
           (invitation) => (
             <CardInvitation key={invitation.id} invitation={invitation} />
           ),
