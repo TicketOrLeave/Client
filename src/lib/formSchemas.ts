@@ -19,3 +19,13 @@ export const createEventSchema = z.object({
   image: z.string().optional(),
   maxTickets: z.string().min(1).optional().default('0'),
 })
+
+export const inviteUserFromSchema = z.object({
+  email: z
+    .string()
+    .min(2, {
+      message: 'name must be at least 2 characters.',
+    })
+    .max(120, { message: 'name must be at most 120 characters.' })
+    .email(),
+})

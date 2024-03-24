@@ -4,7 +4,7 @@ import { Button } from '../ui/button'
 import { IUser } from '@/types'
 import { Session, getServerSession } from 'next-auth'
 import { DropdownMenuActions } from './Team/DropDwonMenuActions'
-// import InviteUserModal from './Team/InviteUsermodal'
+import InviteUserModal from './Team/InviteUsermodal'
 
 export async function TeamTable({ members, orgId }: { members: IUser[], orgId:string }) {
   const session = await getServerSession()
@@ -16,7 +16,7 @@ export async function TeamTable({ members, orgId }: { members: IUser[], orgId:st
       <div className="flex items-center">
         <h1 className="font-semibold text-lg md:text-2xl">Team</h1>
         
-        {/* <InviteUserModal orgId={orgId} /> */}
+        <InviteUserModal orgId={orgId} />
       </div>
       <div className="border shadow-sm rounded-lg">
         <Table>
