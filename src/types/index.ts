@@ -1,3 +1,13 @@
+export type APIError = {
+  response: {
+    data: {
+      detail: any
+    }
+  }
+}
+
+export type APIRespone<T> = { success: false; error: APIError } | { success: true; data: T }
+
 export interface IOrganization {
   id: string
   name: string
@@ -14,14 +24,31 @@ export interface IEvent {
   description?: string
   cover_image_url?: string
   location?: string
-  maxTickets: number,
+  maxTickets: number
   status: string
   created_at: string
   updated_at: string
 }
 
-export type APIError = {
-  error: any
+export interface IUser {
+  id: string
+  email: string
+  name: string
+  image_url: string
+  role?: string
 }
 
-export type APIRespone<T> = { success: false; error: APIError } | { success: true; data: T }
+export interface IInvitation {
+  id: string
+  status: string
+  created_at: string
+  inviter: {
+    id: string
+    name: string
+    email: string
+  }
+  organization: {
+    id: string
+    name: string
+  }
+}
