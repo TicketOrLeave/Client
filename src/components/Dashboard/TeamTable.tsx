@@ -1,8 +1,7 @@
-import Image from 'next/image'
-import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from '@/components/ui/table'
-import { Button } from '../ui/button'
-import { IUser } from '@/types'
 import { Session, getServerSession } from 'next-auth'
+import Image from 'next/image'
+import { IUser } from '@/types'
+import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from '@/components/ui/table'
 import { DropdownMenuActions } from './Team/DropDwonMenuActions'
 import InviteUserModal from './Team/InviteUsermodal'
 
@@ -30,7 +29,7 @@ export async function TeamTable({ members, orgId }: { members: IUser[], orgId:st
           </TableHeader>
           <TableBody>
             {members.map((member) => (
-              <Member key={member.id} name={member.name} image_url={member.image_url} role={member.role || 'admin'} isAdmin={isAdmin} email={member.email} user={session?.user} />
+              <Member key={member.id} member={member} isAdmin={isAdmin} user={session?.user} orgId={orgId} />
             ))}
           </TableBody>
         </Table>
@@ -40,19 +39,15 @@ export async function TeamTable({ members, orgId }: { members: IUser[], orgId:st
 }
 
 function Member({
-  name,
-  image_url,
-  role,
+  member,
   isAdmin,
-  email,
   user,
+  orgId,
 }: {
-  name: string
-  image_url: string
-  role: string
+  member: IUser
   isAdmin: boolean
-  email: string
   user: Session['user']
+  orgId: string
 }) {
   return (
     <TableRow>
@@ -61,7 +56,7 @@ function Member({
           alt="Avatar"
           className="rounded-full object-cover"
           height="40"
-          src={image_url}
+          src={member.image_url}
           style={{
             aspectRatio: '40/40',
             objectFit: 'cover',
@@ -69,11 +64,11 @@ function Member({
           width="40"
         />
       </TableCell>
-      <TableCell className="font-semibold">{name}</TableCell>
-      <TableCell>{role}</TableCell>
-      {isAdmin && user?.email !== email &&
+      <TableCell className="font-semibold">{member.name}</TableCell>
+      <TableCell>{member.role}</TableCell>
+      {isAdmin && user?.email !== member.email &&
         <TableCell>
-          <DropdownMenuActions role={role} />
+          <DropdownMenuActions role={member.role!} memberId={member.id} orgId={orgId} />
         </TableCell>
       }
     </TableRow>
