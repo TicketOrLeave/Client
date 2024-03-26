@@ -19,6 +19,7 @@ export interface IOrganization {
 export interface IEvent {
   id: string
   name: string
+  organization_name: string
   start_date: string
   end_date: string
   description?: string
@@ -51,4 +52,14 @@ export interface IInvitation {
     id: string
     name: string
   }
+}
+
+export interface ITicket {
+  id: string
+  status: string
+  owner_name: string
+  created_at: string
+  updated_at: string
+  event_id: string
+  owner_email: string
 }

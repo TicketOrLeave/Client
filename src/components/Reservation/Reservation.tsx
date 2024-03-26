@@ -1,12 +1,11 @@
 import { Separator } from '@/components/ui/separator'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { JSX, SVGProps } from 'react'
 import { MapPinIcon } from 'lucide-react'
 import { IEvent } from '@/types'
 import { dateToUs } from '@/lib/utils'
+import TicketReservationForm from './ReservationForm'
+import { createTicket } from '@/lib/serverActions/ticket'
 
 export function Reservation({ event }: { event: IEvent }) {
   return (
@@ -22,10 +21,10 @@ export function Reservation({ event }: { event: IEvent }) {
             <span>:</span>
             <span>{dateToUs(event.end_date)}</span>
           </div>
-            <div className='flex items-center space-x-2 text-sm'>
+          <div className="flex items-center space-x-2 text-sm">
             <MapPinIcon className="w-4 h-4" />
             <span>{event.location}</span>
-            </div>
+          </div>
         </div>
         {event.cover_image_url && (
           <Image
@@ -40,22 +39,8 @@ export function Reservation({ event }: { event: IEvent }) {
           <p>{event.description}</p>
         </div>
         <Separator />
-        <div className="mx-auto w-full rounded-2xl space-y-4">
-          <h2 className="text-xl font-bold tracking-tighter">Register for the Event</h2>
-          <form className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" placeholder="Enter your name" required />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" placeholder="Enter your email" required type="email" />
-            </div>
-            <Button className="w-full bg-green-400 hover:bg-green-500" type="submit">
-              Reserve my ticket
-            </Button>
-          </form>
-        </div>
+
+        <TicketReservationForm eventId={event.id} createTicket={createTicket} />
       </div>
     </div>
   )
