@@ -2,8 +2,8 @@ import { Session, getServerSession } from 'next-auth'
 import Image from 'next/image'
 import { IUser } from '@/types'
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from '@/components/ui/table'
-import { DropdownMenuActions } from './Team/DropDwonMenuActions'
-import InviteUserModal from './Team/InviteUsermodal'
+import { DropdownMenuActions } from './DropDwonMenuActions'
+import InviteUserModal from './InviteUsermodal'
 
 export async function TeamTable({ members, orgId }: { members: IUser[], orgId:string }) {
   const session = await getServerSession()

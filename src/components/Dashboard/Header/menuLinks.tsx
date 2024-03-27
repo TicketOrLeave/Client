@@ -25,24 +25,6 @@ export function MenuLinks() {
         <span>Home</span>
       </Link>
       <Link
-        href={`/dashboard/${orgId}/events/`}
-        className={`p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex gap-2 ${
-          cur === 'events' ? 'bg-green-400 text-white' : ''
-        }`}
-      >
-        <Calendar className="h-6 w-6" />
-        <span>Events</span>
-      </Link>
-      <Link
-        href={`/dashboard/${orgId}/tickets`}
-        className={`p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex gap-2 ${
-          cur === '/tickets' ? 'bg-green-400 text-white' : ''
-        }`}
-      >
-        <TicketIcon className="h-6 w-6" />
-        <span>Tickets</span>
-      </Link>
-      <Link
         href={`/dashboard/${orgId}/team`}
         className={`p-2 underline text-black hover:bg-green-400 w-full rounded hover:text-white flex gap-2 ${
           cur === '/team' ? 'bg-green-400 text-white' : ''

@@ -1,4 +1,4 @@
-import { TeamTable } from '@/components/Dashboard/TeamTable'
+import { TeamTable } from '@/components/Dashboard/Team/TeamTable'
 import { getOrgMembers } from '@/lib/serverActions/team'
 import { redirect } from 'next/navigation'
 
