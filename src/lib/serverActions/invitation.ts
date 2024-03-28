@@ -1,6 +1,7 @@
 'use server'
 import { APIError, APIRespone, IInvitation } from '@/types'
 import fetcher from '../fetcher'
+import { revalidatePath } from 'next/cache'
 
 export async function getInvitations(): Promise<APIRespone<IInvitation[]>> {
   try {
@@ -17,6 +18,7 @@ export async function acceptDeclineInvitations(
 ): Promise<APIRespone<string | null>> {
   try {
     const res = await fetcher.put(`/invitations/${invitationId}`, { status })
+    revalidatePath('/dashboard')
     return { success: true, data: res.data }
   } catch (error: any) {
     return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }

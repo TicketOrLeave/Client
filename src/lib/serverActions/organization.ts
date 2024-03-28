@@ -1,6 +1,7 @@
 'use server'
 import { APIError, APIRespone, IEvent, IOrganization } from '@/types'
 import fetcher from '../fetcher'
+import { revalidatePath } from 'next/cache'
 
 export async function createOrganization({
   name,
@@ -24,6 +25,7 @@ export async function createOrganization({
       website,
     
     })
+    revalidatePath('/dashboard')
     return { success: true, data: res.data }
   } catch (error) {
     return { success: false, error: error as APIError }
@@ -78,6 +80,7 @@ export async function createEvent({
       max_tickets: maxTickets,
       orgId,
     })
+    revalidatePath('/dashboard/{orgId}')
     return { success: true, data: res.data }
   } catch (error) {
     return { success: false, error: error as APIError }
