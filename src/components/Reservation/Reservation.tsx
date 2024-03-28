@@ -5,7 +5,7 @@ import { MapPinIcon } from 'lucide-react'
 import { IEvent } from '@/types'
 import { dateToUs } from '@/lib/utils'
 import TicketReservationForm from './ReservationForm'
-import { createTicket } from '@/lib/serverActions/ticket'
+import { createTicket } from '@/lib/serverActions/reservation'
 
 export function Reservation({ event }: { event: IEvent }) {
   return (

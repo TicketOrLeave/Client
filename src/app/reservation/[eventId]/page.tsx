@@ -1,13 +1,12 @@
 import { Reservation } from '@/components/Reservation/Reservation'
-import { getEvent } from '@/lib/serverActions/event'
-import { redirect } from 'next/navigation'
+import { getReservationEvent } from '@/lib/serverActions/reservation'
+import { notFound } from 'next/navigation'
 import { Toaster } from 'react-hot-toast'
 
 export default async function page({ params: { eventId } }: { params: { eventId: string } }) {
-  const res = await getEvent(eventId)
-  if (!res.success) {
-    redirect('/reservation')
-  }
+  const res = await getReservationEvent(eventId)
+  if (!res.success) notFound()
+  
   return (
     <div className="container m-auto">
       <Reservation event={res.data} />
