@@ -7,8 +7,8 @@ export async function getOrgMembers(orgId: string): Promise<APIRespone<IUser[]>>
   try {
     const res = await fetcher.get(`/organizations/${orgId}/members`)
     return { success: true, data: res.data }
-  } catch (error) {
-    return { success: false, error: error as APIError }
+  } catch (error: any) {
+    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
   }
 }
 

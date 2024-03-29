@@ -27,8 +27,8 @@ export async function createOrganization({
     })
     revalidatePath('/dashboard')
     return { success: true, data: res.data }
-  } catch (error) {
-    return { success: false, error: error as APIError }
+  } catch (error: any) {
+    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
   }
 }
 
@@ -36,8 +36,8 @@ export async function getOrganizations(): Promise<APIRespone<IOrganization[]>> {
   try {
     const res = await fetcher.get(`/organizations/`)
     return { success: true, data: res.data }
-  } catch (error) {
-    return { success: false, error: error as APIError }
+  } catch (error: any) {
+    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
   }
 }
 
@@ -45,8 +45,8 @@ export async function getOrganization(orgId: string): Promise<APIRespone<IOrgani
   try {
     const res = await fetcher.get(`/organizations/${orgId}`)
     return { success: true, data: res.data }
-  } catch (error) {
-    return { success: false, error: error as APIError }
+  } catch (error: any) {
+    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
   }
 }
 
@@ -82,7 +82,7 @@ export async function createEvent({
     })
     revalidatePath('/dashboard/{orgId}')
     return { success: true, data: res.data }
-  } catch (error) {
-    return { success: false, error: error as APIError }
+  } catch (error: any) {
+    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
   }
 }

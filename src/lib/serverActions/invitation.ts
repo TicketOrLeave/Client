@@ -7,8 +7,8 @@ export async function getInvitations(): Promise<APIRespone<IInvitation[]>> {
   try {
     const res = await fetcher.get(`/invitations/`)
     return { success: true, data: res.data }
-  } catch (error) {
-    return { success: false, error: error as APIError }
+  } catch (error: any) {
+    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
   }
 }
 
