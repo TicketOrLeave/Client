@@ -12,14 +12,9 @@ import {
 import { acceptDeclineInvitations } from '@/lib/serverActions/invitation'
 import { IInvitation } from '@/types'
 import { Bell } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 export function DropdownNotification({ invitations }: { invitations: IInvitation[] }) {
-  // const params = useSearchParams()
-  // const [open, setOpen] = useState(params.get('invitations') === 'true')
-
   return (
     <Dialog>
       <DialogTrigger className="relative">

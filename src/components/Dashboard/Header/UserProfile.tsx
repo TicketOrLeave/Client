@@ -28,11 +28,11 @@ export default function UserProfile({ session }: { session: Session | null }) {
         <span className="sr-only">Toggle user menu</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="text-gray-500">
-        <DropdownMenuLabel>Settings</DropdownMenuLabel>
+        {/* <DropdownMenuLabel>Settings</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex items-center gap-2">
           <span>Dark Theme</span>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuLabel>Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
