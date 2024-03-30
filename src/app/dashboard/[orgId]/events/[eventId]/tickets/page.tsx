@@ -1,4 +1,4 @@
-import { TicketsTable } from '@/components/TicketsTable'
+import { TicketsTable } from '@/components/Dashboard/Tickets/TicketsTable'
 import { getTickets } from '@/lib/serverActions/ticket'
 import { notFound } from 'next/navigation'
 
