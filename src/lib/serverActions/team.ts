@@ -1,5 +1,5 @@
 'use server'
-import { APIError, APIRespone, IUser } from '@/types'
+import { APIRespone, IUser } from '@/types'
 import fetcher from '../fetcher'
 import { revalidatePath } from 'next/cache'
 
@@ -22,7 +22,11 @@ export async function kickMember(orgId: string, userId: string): Promise<APIResp
   }
 }
 
-export async function changeMemberRole(orgId: string, userId: string, role: 'admin' | 'staff'): Promise<APIRespone<null>> {
+export async function changeMemberRole(
+  orgId: string,
+  userId: string,
+  role: 'admin' | 'staff',
+): Promise<APIRespone<null>> {
   try {
     const res = await fetcher.put(`/organizations/${orgId}/members/${userId}/`, { role })
     revalidatePath(`/organizations/${orgId}/team`)
@@ -31,4 +35,3 @@ export async function changeMemberRole(orgId: string, userId: string, role: 'adm
     return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
   }
 }
-

@@ -1,5 +1,5 @@
 'use server'
-import { APIError, APIRespone, IInvitation } from '@/types'
+import { APIRespone, IInvitation } from '@/types'
 import fetcher from '../fetcher'
 import { revalidatePath } from 'next/cache'
 

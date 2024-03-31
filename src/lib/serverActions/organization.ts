@@ -1,5 +1,5 @@
 'use server'
-import { APIError, APIRespone, IEvent, IOrganization } from '@/types'
+import { APIRespone, IEvent, IOrganization } from '@/types'
 import fetcher from '../fetcher'
 import { revalidatePath } from 'next/cache'
 
@@ -23,7 +23,6 @@ export async function createOrganization({
       description,
       logo_url: logo,
       website,
-    
     })
     revalidatePath('/dashboard')
     return { success: true, data: res.data }

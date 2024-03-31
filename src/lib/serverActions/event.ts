@@ -1,6 +1,6 @@
 'use server'
 
-import { APIError, APIRespone, IEvent } from '@/types'
+import { APIRespone, IEvent } from '@/types'
 import fetcher from '../fetcher'
 
 export async function getEvents(orgId: string): Promise<APIRespone<IEvent[]>> {
