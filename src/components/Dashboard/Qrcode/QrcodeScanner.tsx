@@ -3,6 +3,7 @@ import { APIRespone, ITicket } from '@/types'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useZxing } from 'react-zxing'
+import * as z from 'zod'
 
 interface IProps {
   verify: (ticketId: string, eventId: string) => Promise<APIRespone<ITicket>>
@@ -19,6 +20,11 @@ export function QrcodeScanner({ verify, eventId }: IProps) {
   })
 
   async function handleVerifyTicket(result: string) {
+    const schema = z.string().uuid('Invalid ticket ID')
+    if (!schema.safeParse(result).success) {
+      toast.error('Invalid ticket ID')
+      return
+    }
     const res = await verify(result, eventId)
     if (res.success) {
       toast.success('Ticket verified successfully')
