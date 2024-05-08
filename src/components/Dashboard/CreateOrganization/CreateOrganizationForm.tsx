@@ -46,9 +46,9 @@ export default function CreateOrganizationForm() {
       website: data.website,
     })
     toast.dismiss('creating-organization')
-    setLoading(false)
     if (!res.success) {
       toast.error('Error creating organization')
+      setLoading(false)
       return
     }
     toast.success('Organization created successfully')

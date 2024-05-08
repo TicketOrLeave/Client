@@ -81,9 +81,9 @@ export default function CreateEventForm({ orgId }: { orgId: string }) {
       orgId,
     })
     toast.dismiss('creating-Event')
-    setLoading(false)
     if (!res.success) {
       toast.error('Error creating Event')
+      setLoading(false)
       return
     }
     toast.success('Event created successfully')
