@@ -1,5 +1,5 @@
 'use client'
-import { Calendar, HomeIcon, TicketIcon, Users } from 'lucide-react'
+import { Calendar, HomeIcon, QrCode, TicketIcon, Users } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'

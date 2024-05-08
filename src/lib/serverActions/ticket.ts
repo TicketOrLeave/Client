@@ -22,3 +22,13 @@ export async function deleteTicket(ticketId: string): Promise<APIRespone<null>> 
     return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
   }
 }
+
+export async function verifyTicket(ticketId: string, eventId: string): Promise<APIRespone<ITicket>> {
+  try {
+    const res = await fetcher.get(`/tickets/${ticketId}?event_id=${eventId}`)
+    return { success: true, data: res.data }
+  } catch (error: any) {
+    // TODO: Handle pydantic errors
+    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
+  }
+}

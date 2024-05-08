@@ -3,6 +3,7 @@ import { IEvent } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CopyEventLink } from './CopyEventLint'
+import { QrCode } from 'lucide-react'
 
 export async function EventView({ event, orgId }: { event: IEvent; orgId: string }) {
   return (
@@ -18,6 +19,13 @@ export async function EventView({ event, orgId }: { event: IEvent; orgId: string
             </div>
           </div>
           <div className="flex items-start flex-wrap md:flex-nowrap gap-2 lg:gap-0 lg:justify-end lg:space-x-6">
+            <Link
+              href={`/dashboard/${orgId}/events/${event.id}/qrcode`}
+              className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 border-green-400 hover:bg-green-400 hover:text-white text-green-400 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <QrCode size={24} className="mr-2" />
+              Verify Tickets
+            </Link>
             <Link
               href={`/dashboard/${orgId}/events/${event.id}/tickets`}
               className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 border-green-400 hover:bg-green-400 hover:text-white text-green-400 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
