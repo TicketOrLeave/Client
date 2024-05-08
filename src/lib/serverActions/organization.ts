@@ -36,7 +36,7 @@ export async function getOrganizations(): Promise<APIRespone<IOrganization[]>> {
     const res = await fetcher.get(`/organizations/`)
     return { success: true, data: res.data }
   } catch (error: any) {
-    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
+    return { success: false, error: { response: { data: { detail: error?.response?.data?.detail } } } }
   }
 }
 
@@ -45,7 +45,7 @@ export async function getOrganization(orgId: string): Promise<APIRespone<IOrgani
     const res = await fetcher.get(`/organizations/${orgId}`)
     return { success: true, data: res.data }
   } catch (error: any) {
-    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
+    return { success: false, error: { response: { data: { detail: error?.response?.data?.detail } } } }
   }
 }
 
