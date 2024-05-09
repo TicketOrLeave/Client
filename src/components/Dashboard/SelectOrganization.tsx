@@ -18,7 +18,9 @@ interface SelectOrganizationProps {
 export function SelectOrganization({ organizations, onSelect }: SelectOrganizationProps) {
   const pathname = usePathname()
   const [selected, setSelected] = useState<IOrganization>(
-    pathname === '/dashboard' ? organizations[0] : organizations?.find((org) => org.id === pathname.split('/dashboard')[1].split('/')[1])!,
+    pathname === '/dashboard'
+      ? organizations[0]
+      : organizations?.find((org) => org.id === pathname.split('/dashboard')[1].split('/')[1])!,
   )
 
   return (
@@ -38,8 +40,8 @@ export function SelectOrganization({ organizations, onSelect }: SelectOrganizati
                   <>
                     <Image
                       src={
-                        // @ts-ignore
-                        selected.image||`https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`
+                        selected.logo_url ||
+                        `https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`
                       }
                       alt=""
                       className="h-5 w-5 flex-shrink-0 rounded-full"
@@ -81,8 +83,7 @@ export function SelectOrganization({ organizations, onSelect }: SelectOrganizati
                         <div className="flex items-center">
                           <Image
                             src={
-                              // @ts-ignore
-                              selected.image ||
+                              org.logo_url ||
                               'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
                             }
                             alt=""
