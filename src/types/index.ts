@@ -25,7 +25,7 @@ export interface IEvent {
   description?: string
   cover_image_url?: string
   location?: string
-  maxTickets: number
+  max_tickets: number
   status: string
   created_at: string
   updated_at: string

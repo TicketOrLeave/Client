@@ -85,3 +85,46 @@ export async function createEvent({
     return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
   }
 }
+
+export async function updateEvent({
+  eventId,
+  name,
+  dateStart,
+  dateEnd,
+  location,
+  description,
+  image,
+  maxTickets,
+  orgId,
+  status,
+}: {
+  eventId: string
+  name: string
+  dateStart: string
+  dateEnd: string
+  location?: string | undefined
+  description?: string | undefined
+  image?: string | undefined
+  maxTickets: number
+  orgId: string
+  status: string
+}): Promise<APIRespone<IEvent>> {
+  try {
+    const res = await fetcher.put(`/events/${eventId}`, {
+      name,
+      cover_image_url: image,
+      description: description,
+      location: location,
+      start_date: dateStart,
+      end_date: dateEnd,
+      max_tickets: maxTickets,
+      orgId,
+      status: status,
+    })
+    revalidatePath('/dashboard/{orgId}')
+    return { success: true, data: res.data }
+  } catch (error: any) {
+    console.log(error.response.data.detail)
+    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
+  }
+}
