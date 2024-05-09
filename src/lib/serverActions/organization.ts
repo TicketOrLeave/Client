@@ -49,6 +49,36 @@ export async function getOrganization(orgId: string): Promise<APIRespone<IOrgani
   }
 }
 
+export async function updateOrganization({
+  orgId,
+  name,
+  email,
+  description,
+  logo,
+  website,
+}: {
+  orgId: string
+  name: string
+  email: string
+  description: string | undefined
+  website: string | undefined
+  logo: string | undefined
+}): Promise<APIRespone<IOrganization>> {
+  try {
+    const res = await fetcher.put(`/organizations/${orgId}`, {
+      name,
+      contact_email: email,
+      description,
+      logo_url: logo,
+      website,
+    })
+    revalidatePath('/dashboard')
+    return { success: true, data: res.data }
+  } catch (error: any) {
+    return { success: false, error: { response: { data: { detail: error.response.data.detail } } } }
+  }
+}
+
 export async function createEvent({
   name,
   dateStart,

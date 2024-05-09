@@ -12,6 +12,10 @@ export interface IOrganization {
   id: string
   name: string
   owner: string
+  contact_email: string
+  logo_url: string
+  website: string
+  description: string
   created_at: string
   updated_at: string
 }
