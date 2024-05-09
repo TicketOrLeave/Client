@@ -11,10 +11,15 @@ export default async function Page({ params: { orgId } }: { params: { orgId: str
   return (
     <div className="container m-auto">
       <div className="flex justify-between items-center mb-4">
-      <h1 className="font-semibold text-lg md:text-2xl">Events</h1>
-        <Button asChild className="ml-auto bg-green-500 p-4 hover:bg-green-600" size="default">
-          <Link href={`/dashboard/${orgId}/events/create-event`}>Create Event</Link>
-        </Button>
+        <h1 className="font-semibold text-lg md:text-2xl">Events</h1>
+        <div className="flex flex-wrap gap-2">
+          <Button asChild className="ml-auto bg-green-500 p-4 hover:bg-green-600" size="default">
+            <Link href={`/dashboard/${orgId}/events/create-event`}>Create Event</Link>
+          </Button>
+          <Button asChild className="ml-auto bg-green-500 p-4 hover:bg-green-600" size="default">
+            <Link href={`/dashboard/${orgId}/update-organization`}>Update Organization</Link>
+          </Button>
+        </div>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4">
         {events.data.map((event) => (
